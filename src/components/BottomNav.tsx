@@ -11,10 +11,10 @@ export function BottomNav() {
     const { nextWorkout } = useWorkoutRotation();
 
     const links = [
-        { href: "/", label: "Home", icon: Home },
-        { href: `/workout/${nextWorkout}`, label: "Lift", icon: Dumbbell },
-        { href: "/cardio", label: "Cardio", icon: Activity },
-        { href: "/analysis", label: "AI", icon: Wand2 },
+        { href: "/", label: "الرئيسية", icon: Home },
+        { href: `/workout/${nextWorkout}`, label: "تمرين", icon: Dumbbell },
+        { href: "/cardio", label: "كارديو", icon: Activity },
+        { href: "/more", label: "المزيد", icon: Wand2 },
     ];
 
     return (

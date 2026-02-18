@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { analyzePhysique } from "@/actions/analyze"; // We'll make this a server action
+import { analyzePhysique } from "@/actions/analyze";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
-import { Input } from "@/components/ui/Input";
-import { Check, Upload, Wand2 } from "lucide-react";
+import { Upload, Wand2 } from "lucide-react";
 
 export default function AnalysisPage() {
     const [img1, setImg1] = useState<string | null>(null);
@@ -35,11 +34,11 @@ export default function AnalysisPage() {
             if (result.error) {
                 alert(result.error);
             } else {
-                setReport(result.report || "No analysis returned.");
+                setReport(result.report || "لم يتم استلام تقرير.");
             }
         } catch (e) {
             console.error(e);
-            alert("Failed to analyze");
+            alert("فشل التحليل");
         } finally {
             setLoading(false);
         }
@@ -48,18 +47,18 @@ export default function AnalysisPage() {
     return (
         <main className="min-h-screen bg-black text-white p-6 pb-24">
             <Card className="bg-neutral-900/50 border-neutral-800 mb-6">
-                <CardHeader>
-                    <CardTitle className="text-primary flex items-center gap-2">
-                        <Wand2 className="w-6 h-6" /> AI Physique Architect
+                <CardHeader className="text-right">
+                    <CardTitle className="text-primary flex items-center justify-end gap-2 text-2xl">
+                        محلل التطور بالذكاء الاصطناعي <Wand2 className="w-6 h-6" />
                     </CardTitle>
                     <CardDescription>
-                        Upload "Before" and "Current" photos for deep tissue analysis.
+                        ارفع صور "قبل" و "بعد" للحصول على تحليل دقيق للعضلات ونسبة الدهون.
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-6 text-right">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-neutral-400">Before (Day 1)</label>
+                            <label className="text-sm font-medium text-neutral-400">قبل (البداية)</label>
                             <div className="relative aspect-[3/4] bg-neutral-950 rounded-lg border-2 border-dashed border-neutral-800 flex flex-col items-center justify-center overflow-hidden">
                                 {img1 ? (
                                     <img src={`data:image/jpeg;base64,${img1}`} alt="Before" className="object-cover w-full h-full opacity-50" />
@@ -76,7 +75,7 @@ export default function AnalysisPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-neutral-400">Current</label>
+                            <label className="text-sm font-medium text-neutral-400">الآن (الحالي)</label>
                             <div className="relative aspect-[3/4] bg-neutral-950 rounded-lg border-2 border-dashed border-neutral-800 flex flex-col items-center justify-center overflow-hidden">
                                 {img2 ? (
                                     <img src={`data:image/jpeg;base64,${img2}`} alt="Current" className="object-cover w-full h-full opacity-50" />
@@ -99,7 +98,7 @@ export default function AnalysisPage() {
                         onClick={handleAnalyze}
                         isLoading={loading}
                     >
-                        RUN DIAGNOSTICS
+                        بدء التحليل
                     </Button>
                 </CardContent>
             </Card>
@@ -107,9 +106,9 @@ export default function AnalysisPage() {
             {report && (
                 <Card className="bg-neutral-900/50 border-neutral-800 animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <CardHeader>
-                        <CardTitle className="text-xl">Analysis Report</CardTitle>
+                        <CardTitle className="text-xl text-right">تقرير التحليل</CardTitle>
                     </CardHeader>
-                    <CardContent className="prose prose-invert prose-sm max-w-none">
+                    <CardContent className="prose prose-invert prose-sm max-w-none text-right" dir="rtl">
                         <div className="whitespace-pre-wrap">{report}</div>
                     </CardContent>
                 </Card>
