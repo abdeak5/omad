@@ -5,14 +5,14 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
 export async function generateWorkoutPlan(userData: any) {
-    if (!process.env.GEMINI_API_KEY) {
-        return { error: "مفتاح API غير مكون" };
-    }
+  if (!process.env.GEMINI_API_KEY) {
+    return { error: "مفتاح API غير مكون" };
+  }
 
-    try {
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-        const prompt = `
+    const prompt = `
     تخيل أنك مدرب كمال أجسام عالمي وخبير تغذية. قم بإنشاء خطة تدريب وتغذية مفصلة لمدة 4 أسابيع بناءً على بيانات المستخدم التالية:
     - الوزن: ${userData.weight} كجم
     - الطول: ${userData.height} سم
@@ -44,13 +44,13 @@ export async function generateWorkoutPlan(userData: any) {
     }
     `;
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text().replace(/```json|```/g, "").trim();
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text().replace(/```json|```/g, "").trim();
 
-        return { plan: JSON.parse(text) };
-    } catch (error: any) {
-        console.error("Gemini Error:", error);
-        return { error: "فشل في توليد الخطة. حاول مرة أخرى." };
-    }
+    return { plan: JSON.parse(text) };
+  } catch (error: any) {
+    console.error("Gemini Error:", error);
+    return { error: `فشل في توليد الخطة: ${error.message || "خطأ غير معروف"}` };
+  }
 }

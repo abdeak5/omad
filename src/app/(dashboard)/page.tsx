@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Timer, Utensils, Dumbbell, Droplets, Flame, ChevronLeft } from "lucide-react";
 import { CircularProgress } from "@/components/ui/CircularProgress";
+import { StreakCounter } from "@/components/StreakCounter";
 
 export default function Dashboard() {
     const { timeLeft, progress, phase } = useFastingTimer();
@@ -37,14 +38,20 @@ export default function Dashboard() {
 
     return (
         <main className="min-h-screen pb-24 p-6 space-y-6">
+
+            // ... inside Dashboard component ...
+
             {/* Header */}
             <header className="flex justify-between items-center">
                 <div>
                     <h1 className="text-2xl font-bold text-white">لوحة التحكم</h1>
                     <p className="text-neutral-400 text-sm">اليوم: {new Date().toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
                 </div>
-                <div className="w-10 h-10 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center text-primary font-bold">
-                    {plan.nutrition.macros.protein}g
+                <div className="flex items-center gap-3">
+                    <StreakCounter />
+                    <div className="w-10 h-10 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center text-primary font-bold">
+                        {plan.nutrition.macros.protein}g
+                    </div>
                 </div>
             </header>
 
