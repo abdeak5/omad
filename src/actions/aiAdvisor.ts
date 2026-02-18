@@ -25,6 +25,6 @@ export async function askGemini(prompt: string) {
         return { result: text };
     } catch (error: any) {
         console.error("AI Advisor Error:", error);
-        return { error: "حدث خطأ في الاتصال بالمدرب الذكي." };
+        return { error: `حدث خطأ: ${error.message}` };
     }
 }
